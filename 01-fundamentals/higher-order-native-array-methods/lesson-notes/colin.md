@@ -15,17 +15,107 @@ By the end of this lesson you should be able to:
 
 ---
 
+What are the two kinds of Higher Order Functions?
+
+1. A function that takes a function as a parameter.
+2. A function that returns a function.
+
+In a user interface, we _can't_ run all our code immediately.
+
+We have to _respond_ to each user's specific uses of our app.
+
+WHEN they click "change my profile picture", THEN we run our profile-pic-changing code.
+WHEN they click "add a new post", THEN we run our add-a-new-post code.
+
+
+```js
+function addPost() {
+  // Does fancy stuff to add a post (LOT of code here)
+}
+
+whenTheyClickAddPost(addPost);
+```
+
 ## Guiding Questions
 
 - What is a higher order function?
 
 - What is a native array method?
 
+A method that is built in to every array.
+
+examples:
+
+- push
+- pop
+- indexOf
+- join
+- includes
+- slice
+- filter
+- map
+
+- What is a HIGHER ORDER native array method.
+
+Accepts a function as parameter.
+
+examples:
+
+- filter
+- map
+- forEach
+- find
+- every
+- some
+- sort
+- reduce
+
 - What does it mean for a function to produce side effects?
 
-- What does it mean for a function to return a value?
+A side effect is something that produces an effect OUTSIDE of just returning a value.
+
+examples:
+
+- changing a global variable
+- logging a value
+- modifying the user's interface
+- sending data over the network
+- basically anything USEFUL in an app
+
+It's important to do side effects (ultimately that's what the user sees!).
+But it's also important that _what_ the user sees is from bug-free logic (which should NEVER have side effects). 
+
+side-effect-producing HONAMs:
+
+- `.forEach`
+
+- What is the opposite of a side effect?
+
+A function that _returns_ a value.
+
+examples:
+
+- `.map` - return a transformed array
+- `.filter` - return a smaller array
+- `.find` - return one matching value
+- `.reduce` - return ANYTHING (powerful but confusing)
 
 - Is it possible for functions that return values to also produce side effects?
+
+```js
+const people = ['Taylor', 'Marangely', 'Joshua', 'Florence', 'Jordan']
+const userString = 'J'
+const userSearchResults = people.filter((person, i) => {
+  people[i] = 'Elon Musk is a $%^$^#!@'
+
+  return person.includes(userString)
+})
+
+const userSearchResults2 = people.filter((person, i) => person.includes(userString))
+
+userSearchResults; //> ['Joshua', 'Jordan']
+people; //> ['Elon is terrible', 'Elon is terrible', 'Elon is terrible', 'Elon is terrible']
+```
 
 - The `.every()` method expects at least one argument. What data type is this argument?
 
@@ -46,6 +136,10 @@ By the end of this lesson you should be able to:
   const result = comics.every(isPrintComic);
   console.log(result); //> false
   ```
+  
+  - Activity 1: let's make `isPrintComic` and `isWebComic` together!
+  
+- Activity 2: let's implement our own `every` method! (Together.)
 
 - Update the code below so that it uses the `.every()` method instead of a `for` loop. Inside of `allComicsHaveTitles()` you will have to write another, anonymous function.
 
